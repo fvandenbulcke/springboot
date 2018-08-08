@@ -7,4 +7,18 @@ SpringBoot Projects!
   </a>
 </p>
 
-This project contains my different springboot projects.
+## Description
+
+springboot is a repository with my different springboot projects.
+
+After cloning one of them, install the application to create the .jar as follow: 
+
+```bash
+mvn clean install
+```
+
+Then, run the application : 
+
+```bash
+java -jar -Dspring.config.location=file:devconfig/ ./target/sb-rest-api-docker.jar
+```
