@@ -24,21 +24,16 @@ RUN useradd -G app 1001
 COPY --from=builder /target/sb-rest-api-docker.jar .
 
 # Add spring configuration
-# COPY /docker/application.yml .
-# COPY /docker/log4j2.yml .
-
+COPY /docker/application.yml .
 
 # Remove the temporary folders
 RUN rm -rf /opt/
 
 # Change to the app user.
-#USER 1001
+USER 1001
 
 # Expose the app port
 EXPOSE 8080
-
-# Set the spring configuration path to 
-ENV spring.config.location=.
 
 # Launch the application
 CMD ["java","-jar","/sb-rest-api-docker.jar"]
