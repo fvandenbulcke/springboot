@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "sb.integration.java.dsl.configuration.AppProperties",
+      "name": "app-config",
+      "type": "sb.integration.java.dsl.configuration.AppProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "sb.integration.java.dsl.configuration.AppProperties",
+      "name": "app-config.web-service-url",
+      "type": "java.lang.String"
+    }
+  ]
+}
