@@ -20,5 +20,5 @@ mvn clean install
 Then, run the application : 
 
 ```bash
-java -jar -Dspring.config.location=file:devconfig/ ./target/sb-rest-api-docker.jar
+java -jar ./target/springboot.jar --spring.config.location=file:devconfig/
 ```
