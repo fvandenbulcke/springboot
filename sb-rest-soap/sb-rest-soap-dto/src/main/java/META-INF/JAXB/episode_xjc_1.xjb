@@ -5,7 +5,7 @@
 Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.0 
 Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-Généré le : 2018.09.04 à 11:19:45 AM CEST 
+Généré le : 2018.09.26 à 11:56:34 AM CEST 
 
   -->
   <bindings scd="x-schema::tns" xmlns:tns="http://webservice.api.sb/soap">
@@ -44,18 +44,6 @@ Généré le : 2018.09.04 à 11:19:45 AM CEST
     </bindings>
     <bindings scd="tns:DeleteStudentResponse">
       <class ref="sb.api.webservice.soap.DeleteStudentResponse"/>
-    </bindings>
-    <bindings scd="~tns:GetStudentByIdResponseExtended">
-      <class ref="sb.api.webservice.soap.GetStudentByIdResponseExtended"/>
-    </bindings>
-    <bindings scd="~tns:VersionResponse">
-      <class ref="sb.api.webservice.soap.VersionResponse"/>
-    </bindings>
-    <bindings scd="~tns:address">
-      <class ref="sb.api.webservice.soap.Address"/>
-    </bindings>
-    <bindings scd="~tns:USAddress">
-      <class ref="sb.api.webservice.soap.USAddress"/>
     </bindings>
   </bindings>
 </bindings>
