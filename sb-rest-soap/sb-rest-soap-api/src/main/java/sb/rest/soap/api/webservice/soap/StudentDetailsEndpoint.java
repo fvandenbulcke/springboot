@@ -25,7 +25,7 @@ import sb.api.webservice.soap.UpdateStudentNameResponse;
 import sb.rest.soap.api.service.IStudentService;
 import sb.rest.soap.api.service.dto.Student;
 
-@Endpoint
+//@Endpoint
 public class StudentDetailsEndpoint {
 	
 
@@ -34,7 +34,7 @@ public class StudentDetailsEndpoint {
 	@Autowired
 	private IStudentService studentService;
 
-	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "GetStudentByIdRequest")
+	@PayloadRoot(namespace = "http://webservice.api.sb/soap/students", localPart = "GetStudentByIdRequest")
 	@ResponsePayload
 	public GetStudentByIdResponse getStudentById(@RequestPayload GetStudentByIdRequest request) {
 		LOGGER.info("Web service call to get student by id");
