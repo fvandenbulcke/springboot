@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.0 
+Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2018.09.27 à 10:09:41 AM CEST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://codenotfound.com/types/helloworld">
+    <schemaBindings map="false">
+      <package name="com.codenotfound.types.helloworld"/>
+    </schemaBindings>
+    <bindings scd="tns:person">
+      <class ref="com.codenotfound.types.helloworld.Person"/>
+    </bindings>
+    <bindings scd="tns:greeting">
+      <class ref="com.codenotfound.types.helloworld.Greeting"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://webservice.api.sb/soap">
+    <schemaBindings map="false">
+      <package name="sb.api.webservice.soap"/>
+    </schemaBindings>
+    <bindings scd="tns:getStudentByIdRequest">
+      <class ref="sb.api.webservice.soap.GetStudentByIdRequest"/>
+    </bindings>
+    <bindings scd="tns:StudentDetails">
+      <class ref="sb.api.webservice.soap.StudentDetails"/>
+    </bindings>
+  </bindings>
+</bindings>
+

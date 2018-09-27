@@ -2,12 +2,11 @@ package sb.rest.soap.api.service;
 
 import java.util.List;
 
-import sb.api.webservice.soap.SearchStudentsRequest;
 import sb.rest.soap.api.service.dto.Student;
 
 public interface IStudentService {
 	
-	public List<Student> search(SearchStudentsRequest request);
+	// public List<Student> search(SearchStudentsRequest request);
 	
 	public Student getById(Integer id);
 	

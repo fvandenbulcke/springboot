@@ -28,14 +28,21 @@
         </xsd:complexType>
       </xsd:element>
       
-	<xsd:element name="getStudentByIdRequest">
+      <!-- <xsd:import namespace="http://webservice.api.sb/soap" schemaLocation="students.xsd"/> -->
+      
+    </xsd:schema>
+    
+    <xsd:schema targetNamespace="http://webservice.api.sb/soap"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+      attributeFormDefault="unqualified" version="1.0">
+    <!-- <xsd:import namespace="http://webservice.api.sb/soap" schemaLocation="students.xsd"/> -->
+ 	<xsd:element name="getStudentByIdRequest">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="id" type="xsd:int" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-      
 	<xsd:element name="StudentDetails">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -45,8 +52,10 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-      
+	    
     </xsd:schema>
+    
+    
   </wsdl:types>
 
   <wsdl:message name="SayHelloInput">

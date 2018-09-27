@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
-import sb.api.webservice.soap.SearchStudentsRequest;
 import sb.rest.soap.api.service.IStudentService;
 import sb.rest.soap.api.service.dto.Student;
 
@@ -25,14 +24,14 @@ public class StudentServiceImpl implements IStudentService {
 		students.add(new Student(3,"Miguel","789123"));
 	}
 
-	@Override
-	public List<Student> search(SearchStudentsRequest request) {
-		return students.stream()
-				.filter((s) -> 
-					s.getName().equals(request.getName())
-					|| request.getPassportNumber()!=null && s.getPassportNumber().contains(request.getPassportNumber()))
-				.collect(Collectors.toList());
-	}
+//	@Override
+//	public List<Student> search(SearchStudentsRequest request) {
+//		return students.stream()
+//				.filter((s) -> 
+//					s.getName().equals(request.getName())
+//					|| request.getPassportNumber()!=null && s.getPassportNumber().contains(request.getPassportNumber()))
+//				.collect(Collectors.toList());
+//	}
 
 	@Override
 	public Student getById(Integer id) {

@@ -1,8 +1,9 @@
 <xs:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:v1="http://webservice.api.sb/soap"
+	elementFormDefault="qualified"
 	targetNamespace="http://webservice.api.sb/soap"
-	elementFormDefault="qualified">
+	xmlns:tns="http://webservice.api.sb/soap"
+	xmlns:types="http://webservice.api.sb/soap">
 
 	<xs:element name="GetStudentByIdRequest">
 		<xs:complexType>
@@ -16,8 +17,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="version" type="xs:string" />
-				<xs:element name="StudentDetails"
-					type="v1:StudentDetails" />
+				<xs:element name="StudentDetails" type="types:StudentDetails" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -26,8 +26,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:string" minOccurs="0" />
-				<xs:element name="passportNumber" type="xs:string"
-					minOccurs="0" />
+				<xs:element name="passportNumber" type="xs:string" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -36,7 +35,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="StudentDetailList"
-					type="v1:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
+					type="types:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -55,7 +54,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="StudentDetailList"
-					type="v1:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
+					type="types:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -73,7 +72,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="StudentDetailList"
-					type="v1:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
+							type="types:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -90,7 +89,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="StudentDetailList"
-					type="v1:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
+					type="types:StudentDetails" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -13,8 +13,6 @@ C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webs
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\com\codenotfound\types\helloworld\Greeting.java
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webservice\soap\CreateStudentRequest.java
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webservice\soap\DeleteStudentRequest.java
-C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\com\codenotfound\types\helloworld\GetStudentByIdRequest.java
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webservice\rest\BookDto.java
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webservice\soap\package-info.java
-C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\com\codenotfound\types\helloworld\StudentDetails.java
 C:\workspaces\springboot\sb-rest-soap\sb-rest-soap-dto\src\main\java\sb\api\webservice\soap\UpdateStudentNameRequest.java

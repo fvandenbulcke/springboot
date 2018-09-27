@@ -1,10 +1,8 @@
-com\codenotfound\types\helloworld\StudentDetails.class
 com\codenotfound\types\helloworld\ObjectFactory.class
 sb\api\webservice\soap\DeleteStudentResponse.class
 com\codenotfound\types\helloworld\Greeting.class
 sb\api\webservice\soap\StudentDetails.class
 sb\api\webservice\soap\CreateStudentResponse.class
-com\codenotfound\types\helloworld\GetStudentByIdRequest.class
 sb\api\webservice\soap\package-info.class
 com\codenotfound\types\helloworld\Person.class
 sb\api\webservice\soap\DeleteStudentRequest.class

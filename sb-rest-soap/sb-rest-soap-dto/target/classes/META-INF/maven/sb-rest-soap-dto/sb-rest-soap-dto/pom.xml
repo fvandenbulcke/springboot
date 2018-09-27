@@ -29,8 +29,8 @@
 			</executions>
 			<configuration>
 				<sources>
-					<source>${project.basedir}/src/main/resources/hello-world.wsdl</source>
 					<source>${project.basedir}/src/main/resources/students.wsdl</source>
+					<!-- <source>${project.basedir}/src/main/resources/hello-world.wsdl</source> -->
 				</sources>
 				<sourceType>wsdl</sourceType>
 				<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
