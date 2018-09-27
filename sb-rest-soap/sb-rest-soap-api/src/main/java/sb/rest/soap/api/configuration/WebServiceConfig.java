@@ -22,10 +22,10 @@ import sb.rest.soap.api.MainClassApplication;
 public class WebServiceConfig extends WsConfigurerAdapter {
 
 	@Bean
-	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
+	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(applicationContext);
-		return new ServletRegistrationBean(servlet, "/ws/*");
+		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/ws/*");
 	}
 
 	@Bean(name = "students")
