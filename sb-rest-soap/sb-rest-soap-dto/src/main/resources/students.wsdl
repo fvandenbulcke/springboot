@@ -27,10 +27,58 @@
 		<wsdl:part name="getStudentByIdResponse" element="types:GetStudentByIdResponse" />
 	</wsdl:message>
 
+	<wsdl:message name="SearchStudentsInput">
+		<wsdl:part name="searchStudentsRequest" element="SearchStudentsRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="SearchStudentsOutput">
+		<wsdl:part name="searchStudentsResponse" element="types:SearchStudentsResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="CreateStudentInput">
+		<wsdl:part name="createStudentRequest" element="CreateStudentRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="CreateStudentOutput">
+		<wsdl:part name="createStudentResponse" element="types:CreateStudentResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateStudentNameInput">
+		<wsdl:part name="updateStudentNameRequest" element="UpdateStudentNameRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateStudentNameOutput">
+		<wsdl:part name="updateStudentNameResponse" element="types:UpdateStudentNameResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteStudentInput">
+		<wsdl:part name="deleteStudentRequest" element="DeleteStudentRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteStudentOutput">
+		<wsdl:part name="deleteStudentResponse" element="types:DeleteStudentResponse" />
+	</wsdl:message>
+
 	<wsdl:portType name="Students_PortType">
 		<wsdl:operation name="getStudentById">
 			<wsdl:input message="tns:GetStudentByIdInput" />
 			<wsdl:output message="tns:GetStudentByIdOutput" />
+		</wsdl:operation>
+		<wsdl:operation name="search">
+			<wsdl:input message="tns:SearchStudentsInput" />
+			<wsdl:output message="tns:SearchStudentsOutput" />
+		</wsdl:operation>
+		<wsdl:operation name="create">
+			<wsdl:input message="tns:CreateStudentInput" />
+			<wsdl:output message="tns:CreateStudentOutput" />
+		</wsdl:operation>
+		<wsdl:operation name="updateName">
+			<wsdl:input message="tns:UpdateStudentNameInput" />
+			<wsdl:output message="tns:UpdateStudentNameOutput" />
+		</wsdl:operation>
+		<wsdl:operation name="delete">
+			<wsdl:input message="tns:DeleteStudentInput" />
+			<wsdl:output message="tns:DeleteStudentOutput" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -38,12 +86,28 @@
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="getStudentById">
 			<soap:operation soapAction="http://webservice.api.sb/soap/getStudentById" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="search">
+			<soap:operation soapAction="http://webservice.api.sb/soap/search" />
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="create">
+			<soap:operation soapAction="http://webservice.api.sb/soap/create" />
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateName">
+			<soap:operation soapAction="http://webservice.api.sb/soap/updateName" />
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="delete">
+			<soap:operation soapAction="http://webservice.api.sb/soap/delete" />
+			<wsdl:input><soap:body use="literal" /></wsdl:input>
+			<wsdl:output><soap:body use="literal" /></wsdl:output>
 		</wsdl:operation>
 	</wsdl:binding>
 

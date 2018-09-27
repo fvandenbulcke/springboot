@@ -1,6 +1,7 @@
 .metadata/
 .recommenders/
 **/target/
+**/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
