@@ -33,7 +33,7 @@ public class StudentDetailsEndpoint {
 
 	@Autowired
 	private IStudentService studentService;
-
+	
 	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "GetStudentByIdRequest")
 	@ResponsePayload
 	public GetStudentByIdResponse getStudentById(@RequestPayload GetStudentByIdRequest request) {
@@ -49,7 +49,6 @@ public class StudentDetailsEndpoint {
 		return response;
 	}
 	
-
 	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "SearchStudentsRequest")
 	@ResponsePayload
 	public SearchStudentsResponse search(@RequestPayload SearchStudentsRequest request) {

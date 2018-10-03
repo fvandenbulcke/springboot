@@ -28,10 +28,13 @@
 				</execution>
 			</executions>
 			<configuration>
-				<sources>${project.basedir}/src/main/resources</sources>
+				<sources>
+					<source>${project.basedir}/src/main/resources/students.wsdl</source>
+				</sources>
 				<sourceType>wsdl</sourceType>
 				<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 				<clearOutputDir>false</clearOutputDir>
+				<noGeneratedHeaderComments>true</noGeneratedHeaderComments>
 			</configuration>
 		</plugin>
   	</plugins>
