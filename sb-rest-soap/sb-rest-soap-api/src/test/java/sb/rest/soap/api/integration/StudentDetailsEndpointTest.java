@@ -160,9 +160,9 @@ public class StudentDetailsEndpointTest extends StudentDetailsEndpointTestUtils 
     
     private void validTestResults(Source requestPayload, Source responsePayload) throws IOException {
         mockClient.sendRequest(withPayload(requestPayload))
-        .andExpect(noFault())
-        .andExpect(payload(responsePayload))
-        .andExpect(validPayload(xsdSchema));
+			        .andExpect(noFault())
+			        .andExpect(payload(responsePayload))
+			        .andExpect(validPayload(xsdSchema));
     }
     
 }
