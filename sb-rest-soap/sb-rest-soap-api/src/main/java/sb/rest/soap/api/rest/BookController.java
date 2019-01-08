@@ -1,4 +1,4 @@
-package sb.rest.soap.api.webservice.rest;
+package sb.rest.soap.api.rest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +20,7 @@ import sb.rest.soap.api.service.IBookService;
 import sb.rest.soap.api.service.dto.Book;
 
 
-@RestController
+@RestController(value="bookController")
 @RequestMapping(path="/api/v1")
 public class BookController {
 	

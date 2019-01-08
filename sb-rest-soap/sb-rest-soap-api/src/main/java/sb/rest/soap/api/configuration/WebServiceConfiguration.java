@@ -1,6 +1,5 @@
 package sb.rest.soap.api.configuration;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +18,7 @@ import sb.rest.soap.api.MainClassApplication;
 @EnableWs
 @Configuration
 @ComponentScan(basePackageClasses = MainClassApplication.class)
-@EnableConfigurationProperties(value = { AppProperties.class })
-public class WebServiceConfig extends WsConfigurerAdapter {
+public class WebServiceConfiguration extends WsConfigurerAdapter {
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();

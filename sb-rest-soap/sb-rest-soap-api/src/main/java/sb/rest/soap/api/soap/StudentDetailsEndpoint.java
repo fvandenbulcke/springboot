@@ -1,4 +1,4 @@
-package sb.rest.soap.api.webservice.soap;
+package sb.rest.soap.api.soap;
 
 import java.util.List;
 import java.util.stream.Collectors;

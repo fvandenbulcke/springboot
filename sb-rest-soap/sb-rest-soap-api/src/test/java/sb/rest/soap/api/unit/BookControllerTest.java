@@ -1,4 +1,4 @@
-package sb.rest.soap.api.unit.webservice.rest;
+package sb.rest.soap.api.unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -21,9 +21,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import sb.rest.soap.api.rest.BookController;
 import sb.rest.soap.api.service.IBookService;
 import sb.rest.soap.api.service.dto.Book;
-import sb.rest.soap.api.webservice.rest.BookController;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookControllerTest {

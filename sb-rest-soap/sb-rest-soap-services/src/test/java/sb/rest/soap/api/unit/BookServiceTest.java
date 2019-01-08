@@ -1,4 +1,4 @@
-package sb.rest.soap.api.unit.service;
+package sb.rest.soap.api.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -9,14 +9,15 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import sb.rest.soap.api.configuration.ConfigurationTest;
 import sb.rest.soap.api.service.IBookService;
 import sb.rest.soap.api.service.dto.Book;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@ContextConfiguration(classes= {ConfigurationTest.class})
 public class BookServiceTest {
 
 	@Autowired
