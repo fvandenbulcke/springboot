@@ -22,8 +22,8 @@
    <xs:element name="SearchStudentsRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="name" type="xs:string" minOccurs="0"/>
-      	<xs:element name="passportNumber" type="xs:string" minOccurs="0"/>
+        <xs:element name="value" type="xs:string" minOccurs="0"/>
+      	<xs:element name="criteria" type="xs:string" minOccurs="0"/>
       </xs:sequence>  
     </xs:complexType>
   </xs:element>
@@ -39,8 +39,9 @@
    <xs:element name="CreateStudentRequest">
     <xs:complexType>
       <xs:sequence>
+        <xs:element name="firstName" type="xs:string" minOccurs="0"/>
         <xs:element name="name" type="xs:string" minOccurs="0"/>
-      	<xs:element name="passportNumber" type="xs:string" minOccurs="0"/>
+        <xs:element name="level" type="xs:string" minOccurs="0"/>
       </xs:sequence>  
     </xs:complexType>
   </xs:element>
@@ -90,8 +91,9 @@
   <xs:complexType name="StudentDetails">
     <xs:sequence>
       <xs:element name="id" type="xs:int"/>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="passportNumber" type="xs:string"/>
+      <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="level" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   

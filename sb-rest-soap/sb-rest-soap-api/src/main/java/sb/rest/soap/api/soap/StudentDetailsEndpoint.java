@@ -1,8 +1,8 @@
 package sb.rest.soap.api.soap;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,9 @@ import sb.api.webservice.soap.SearchStudentsResponse;
 import sb.api.webservice.soap.StudentDetails;
 import sb.api.webservice.soap.UpdateStudentNameRequest;
 import sb.api.webservice.soap.UpdateStudentNameResponse;
+import sb.rest.soap.api.mapper.StudentMapper;
 import sb.rest.soap.api.service.IStudentService;
+import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
 
 @Endpoint
@@ -30,6 +32,7 @@ public class StudentDetailsEndpoint {
 	
 
 	private final Logger LOGGER = LoggerFactory.getLogger(StudentDetailsEndpoint.class);
+	private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
 
 	@Autowired
 	private IStudentService studentService;
@@ -40,7 +43,7 @@ public class StudentDetailsEndpoint {
 		LOGGER.info("Web service call to get student by id");
 
 		Student student = studentService.getById(request.getId());
-		StudentDetails studentDetails = getStudentDetails(student);
+		StudentDetails studentDetails = mapper.asStudentDetails(student);
 		
 		GetStudentByIdResponse response = new GetStudentByIdResponse();
 		response.setVersion("v1");
@@ -54,9 +57,9 @@ public class StudentDetailsEndpoint {
 	@ResponsePayload
 	public SearchStudentsResponse search(@RequestPayload SearchStudentsRequest request) {
 		LOGGER.info("Web service call to search students");
-
-		List<Student> students = studentService.search(request);
-		List<StudentDetails> studentDetailsList = getStudentDetailsList(students);
+		SearchStudents searchRequest = mapper.asSearchStudents(request);
+		List<Student> students = studentService.search(searchRequest);
+		List<StudentDetails> studentDetailsList = mapper.asStudentDetailsList(students);
 		
 		SearchStudentsResponse response = new SearchStudentsResponse();
 		response.getStudentDetailList().addAll(studentDetailsList);
@@ -69,8 +72,8 @@ public class StudentDetailsEndpoint {
 	public CreateStudentResponse create(@RequestPayload CreateStudentRequest request) {
 		LOGGER.info("Web service call to create student");
 
-		List<Student> students = studentService.create(request.getName(),request.getPassportNumber());
-		List<StudentDetails> studentDetailsList = getStudentDetailsList(students);
+		List<Student> students = studentService.create(request.getName(), request.getName(), request.getLevel());
+		List<StudentDetails> studentDetailsList = mapper.asStudentDetailsList(students);
 		
 		CreateStudentResponse response = new CreateStudentResponse();
 		response.getStudentDetailList().addAll(studentDetailsList);
@@ -84,7 +87,7 @@ public class StudentDetailsEndpoint {
 		LOGGER.info("Web service call to update student name");
 
 		List<Student> students = studentService.updateName(request.getId(),request.getName());
-		List<StudentDetails> studentDetailsList = getStudentDetailsList(students);
+		List<StudentDetails> studentDetailsList = mapper.asStudentDetailsList(students);
 		
 		UpdateStudentNameResponse response = new UpdateStudentNameResponse();
 		response.getStudentDetailList().addAll(studentDetailsList);
@@ -98,7 +101,7 @@ public class StudentDetailsEndpoint {
 		LOGGER.info("Web service call to delete student");
 
 		List<Student> students = studentService.delete(request.getId());
-		List<StudentDetails> studentDetailsList = getStudentDetailsList(students);
+		List<StudentDetails> studentDetailsList = mapper.asStudentDetailsList(students);
 		
 		DeleteStudentResponse response = new DeleteStudentResponse();
 		response.getStudentDetailList().addAll(studentDetailsList);
@@ -106,17 +109,4 @@ public class StudentDetailsEndpoint {
 		return response;
 	}
 	
-
-	private List<StudentDetails> getStudentDetailsList(List<Student> students) {
-		return students.stream().map((s) -> getStudentDetails(s)).collect(Collectors.toList());
-	}
-	
-	private StudentDetails getStudentDetails(Student student) {
-		StudentDetails studentDetails = new StudentDetails();
-		studentDetails.setId(student.getId());
-		studentDetails.setName(student.getName());
-		studentDetails.setPassportNumber(student.getPassportNumber());
-		return studentDetails;
-	}
-
 }

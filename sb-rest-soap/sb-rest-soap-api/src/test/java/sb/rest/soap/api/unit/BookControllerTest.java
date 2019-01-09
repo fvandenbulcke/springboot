@@ -38,7 +38,7 @@ public class BookControllerTest {
 	
 	@Before
 	public void setup() {
-		Book book = new Book(1,"Marcel Proust","In Search of Lost Time");
+		Book book = new Book();
 		List<Book> books = new ArrayList<Book>();
 		books.add(book);
 		mockMvc = standaloneSetup(bookController).build();

@@ -1,37 +1,15 @@
 package sb.api.webservice.rest;
 
+import lombok.Data;
+
+@Data
 public class BookDto {
 
 	private Integer id;
 	private String title;
 	private String author;
+	private Integer year;
+	private Integer isbn;
+	private String editor;
 	
-
-	public BookDto() {
-		super();
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }

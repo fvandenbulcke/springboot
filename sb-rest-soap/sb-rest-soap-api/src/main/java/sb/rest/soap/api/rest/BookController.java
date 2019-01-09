@@ -1,8 +1,8 @@
 package sb.rest.soap.api.rest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sb.api.webservice.rest.BookDto;
+import sb.rest.soap.api.mapper.BookMapper;
 import sb.rest.soap.api.service.IBookService;
 import sb.rest.soap.api.service.dto.Book;
+import sb.rest.soap.api.service.exception.LibraryException;
 
 
 @RestController(value="bookController")
@@ -28,6 +30,8 @@ public class BookController {
 
 	@Autowired
 	private IBookService bookService;
+	
+	private BookMapper mapper = Mappers.getMapper(BookMapper.class);
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET,path="/book", produces = "application/json")
@@ -43,7 +47,7 @@ public class BookController {
 			@PathVariable(required = true) Integer bookId) {
 		LOGGER.info("Web service call to get book by id");
 		Book book = bookService.getById(bookId);
-		return getBookDto(book);
+		return mapper.asBook(book);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
@@ -51,7 +55,7 @@ public class BookController {
 	public @ResponseBody List<BookDto> create(
 			@RequestBody(required = true) BookDto bookDto) {
 		LOGGER.info("Web service call to create book");
-		List<Book> books = bookService.create(bookDto.getAuthor(),bookDto.getTitle());
+		List<Book> books = bookService.create(bookDto.getTitle(),bookDto.getAuthor(),bookDto.getYear(),bookDto.getIsbn(),bookDto.getEditor());
 		return getBookList(books);
 	}
 	
@@ -59,7 +63,7 @@ public class BookController {
 	@RequestMapping(method = RequestMethod.PUT,path="/book/{bookId}", produces = "application/json")
 	public @ResponseBody List<BookDto> updateTitle(
 			@PathVariable(required = true) Integer bookId,
-			@RequestBody(required = true) String title) {
+			@RequestBody(required = true) String title) throws LibraryException{
 		LOGGER.info("Web service call to update title book");
 		List<Book> books = bookService.updateTitle(bookId, title);
 		return getBookList(books);
@@ -73,19 +77,9 @@ public class BookController {
 		List<Book> books = bookService.delete(bookId);
 		return getBookList(books);
 	}
-	
-
 
 	private List<BookDto> getBookList(List<Book> books) {
-		return books.stream().map((b) -> getBookDto(b)).collect(Collectors.toList());
-	}
-	
-	private BookDto getBookDto(Book book) {
-		BookDto bookDto = new BookDto();
-		bookDto.setId(book.getId());
-		bookDto.setAuthor(book.getAuthor());
-		bookDto.setTitle(book.getTitle());
-		return bookDto;
+		return mapper.asBookList(books);
 	}
 	
 }

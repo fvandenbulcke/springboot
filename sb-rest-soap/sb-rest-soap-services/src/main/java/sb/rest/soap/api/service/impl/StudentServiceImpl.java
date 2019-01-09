@@ -1,74 +1,92 @@
 package sb.rest.soap.api.service.impl;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import javax.annotation.PostConstruct;
-
+import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sb.api.webservice.soap.SearchStudentsRequest;
+import sb.rest.soap.api.repository.StudentRepository;
+import sb.rest.soap.api.repository.models.StudentBo;
 import sb.rest.soap.api.service.IStudentService;
+import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
+import sb.rest.soap.api.service.enums.LibraryConstants;
+import sb.rest.soap.api.service.mapper.StudentMapper;
 
 @Service
 public class StudentServiceImpl implements IStudentService {
 
-	private List<Student> students;
+	@Autowired
+	private StudentRepository studentRepository;
 	
-	@PostConstruct
-	private void initBooks() {
-		students = new ArrayList<Student>();
-		students.add(new Student(1,"Marcel","123456"));
-		students.add(new Student(2,"James","456789"));
-		students.add(new Student(3,"Miguel","789123"));
+	private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
+	
+
+	@Override
+	public List<Student> getAll() {
+		LOGGER.info("Get all students");
+		List<StudentBo> students = StreamSupport
+				.stream(studentRepository.findAll().spliterator(), false)
+				.collect(Collectors.toList());
+		return mapper.asStudentList(students);
 	}
 
 	@Override
-	public List<Student> search(SearchStudentsRequest request) {
-		return students.stream()
-				.filter((s) -> 
-					s.getName().equals(request.getName())
-					|| request.getPassportNumber()!=null && s.getPassportNumber().contains(request.getPassportNumber()))
-				.collect(Collectors.toList());
+	public List<Student> search(SearchStudents request) {
+		List<StudentBo> students = null;
+		if (LibraryConstants.NAME.name().equals(request.getCriteria())) {
+			LOGGER.info("Search students by name {}", request.getValue());
+			students = studentRepository.findByName(request.getValue());
+		}
+		else if (LibraryConstants.FIRST_NAME.name().equals(request.getCriteria())) {
+			LOGGER.info("Search students by first name {}", request.getValue());
+			students = studentRepository.findByFirstName(request.getValue());
+		}
+		return mapper.asStudentList(students);
 	}
 
 	@Override
 	public Student getById(Integer id) {
-		return students.stream()
-				.filter((s) -> id.equals(s.getId()))
-				.findAny()
-				.orElse(null);
+		LOGGER.info("Get student by id {}", id);
+		StudentBo student = studentRepository.findById(id).get();
+		return mapper.asStudent(student);
 	}
 
 	@Override
-	public List<Student> create(String name, String passportNumber) {
-		Integer newId = students.size()+1;
-		Student newStudent = new Student(newId,name, passportNumber);
-		students.add(newStudent);
-		return students;
+	public List<Student> create(String firstName,String name,String level) {
+		LOGGER.info("Create student : {} - {} - {}", firstName, name, level);
+		StudentBo newStudent = StudentBo.builder()
+										.firstName(firstName)
+										.name(name)
+										.level(level)
+										.creationDate(new Date())
+										.build();
+		studentRepository.save(newStudent);
+		return this.getAll();
 	}
 
 	@Override
 	public List<Student> updateName(Integer id, String newName) {
-		Student currentStudent = students.stream()
-				.filter((s) -> id.equals(s.getId()))
-				.findAny()
-				.orElse(null);
-		currentStudent.setName(newName);
-		return students;
+		LOGGER.info("Update student {} with name {}", id, newName);
+		StudentBo student = studentRepository.findById(id).get();
+		student.setName(newName);
+		studentRepository.save(student);
+		return this.getAll();
 	}
 
 	@Override
 	public List<Student> delete(Integer id) {
-		students = students.stream()
-				.filter((s) -> s.getId()!=id)
-				.map((s) -> {
-					return s.getId()<id ? s : new Student(s.getId()-1,s.getName(),s.getPassportNumber());
-				})
-				.collect(Collectors.toList());
-		return students;
+		LOGGER.info("Delete student {}", id);
+		studentRepository.deleteById(id);
+		return this.getAll();
 	}
+
 
 }

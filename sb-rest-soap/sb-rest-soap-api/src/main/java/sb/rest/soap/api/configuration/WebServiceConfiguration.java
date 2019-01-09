@@ -17,7 +17,8 @@ import sb.rest.soap.api.MainClassApplication;
 
 @EnableWs
 @Configuration
-@ComponentScan(basePackageClasses = MainClassApplication.class)
+// @ComponentScan(basePackageClasses = MainClassApplication.class)
+@ComponentScan(basePackages = {"sb.rest.soap.api"})
 public class WebServiceConfiguration extends WsConfigurerAdapter {
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {

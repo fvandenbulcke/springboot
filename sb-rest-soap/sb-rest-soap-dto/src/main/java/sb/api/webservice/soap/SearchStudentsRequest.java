@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.0 
 // Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2019.01.08 à 02:01:31 PM CET 
+// Généré le : 2019.01.09 à 03:33:23 PM CET 
 //
 
 
@@ -24,8 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="passportNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="criteria" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,61 +36,61 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "name",
-    "passportNumber"
+    "value",
+    "criteria"
 })
 @XmlRootElement(name = "SearchStudentsRequest")
 public class SearchStudentsRequest {
 
-    protected String name;
-    protected String passportNumber;
+    protected String value;
+    protected String criteria;
 
     /**
-     * Obtient la valeur de la propriété name.
+     * Obtient la valeur de la propriété value.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * Définit la valeur de la propriété name.
+     * Définit la valeur de la propriété value.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
-     * Obtient la valeur de la propriété passportNumber.
+     * Obtient la valeur de la propriété criteria.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPassportNumber() {
-        return passportNumber;
+    public String getCriteria() {
+        return criteria;
     }
 
     /**
-     * Définit la valeur de la propriété passportNumber.
+     * Définit la valeur de la propriété criteria.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPassportNumber(String value) {
-        this.passportNumber = value;
+    public void setCriteria(String value) {
+        this.criteria = value;
     }
 
 }
