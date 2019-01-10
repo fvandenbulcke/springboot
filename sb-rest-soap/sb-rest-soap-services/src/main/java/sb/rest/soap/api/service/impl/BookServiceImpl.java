@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,9 @@ public class BookServiceImpl implements IBookService {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	private BookMapper mapper = Mappers.getMapper(BookMapper.class);
+	@Autowired
+	private BookMapper mapper;
+
 	private final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 	
 	

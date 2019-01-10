@@ -2,10 +2,10 @@ package sb.rest.soap.api.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,9 @@ import sb.rest.soap.api.repository.models.StudentBo;
 import sb.rest.soap.api.service.IStudentService;
 import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
+import sb.rest.soap.api.service.enums.Errors;
 import sb.rest.soap.api.service.enums.LibraryConstants;
+import sb.rest.soap.api.service.exception.LibraryException;
 import sb.rest.soap.api.service.mapper.StudentMapper;
 
 @Service
@@ -25,7 +27,9 @@ public class StudentServiceImpl implements IStudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-	private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
+	@Autowired
+	private StudentMapper mapper;
+
 	private final Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
 	
 
@@ -55,7 +59,11 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public Student getById(Integer id) {
 		LOGGER.info("Get student by id {}", id);
-		StudentBo student = studentRepository.findById(id).get();
+		Optional<StudentBo> optional = studentRepository.findById(id);
+		StudentBo student = null;
+		if (optional.isPresent()) {
+			student = optional.get();
+		}
 		return mapper.asStudent(student);
 	}
 
@@ -73,9 +81,15 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public List<Student> updateName(Integer id, String newName) {
+	public List<Student> updateName(Integer id, String newName) throws LibraryException {
 		LOGGER.info("Update student {} with name {}", id, newName);
-		StudentBo student = studentRepository.findById(id).get();
+		Optional<StudentBo> optional = studentRepository.findById(id);
+		StudentBo student = null;
+		if (optional.isPresent()) {
+			student = optional.get();
+		} else {
+			throw new LibraryException(Errors.STUDENT_NOT_EXIST);
+		}
 		student.setName(newName);
 		studentRepository.save(student);
 		return this.getAll();

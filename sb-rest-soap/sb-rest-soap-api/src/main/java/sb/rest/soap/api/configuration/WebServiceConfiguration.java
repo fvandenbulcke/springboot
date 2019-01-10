@@ -3,7 +3,6 @@ package sb.rest.soap.api.configuration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
@@ -13,12 +12,13 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
-import sb.rest.soap.api.MainClassApplication;
+import sb.rest.soap.api.mapper.BookMapper;
+import sb.rest.soap.api.mapper.BookMapperImpl;
+import sb.rest.soap.api.mapper.StudentMapper;
+import sb.rest.soap.api.mapper.StudentMapperImpl;
 
 @EnableWs
 @Configuration
-// @ComponentScan(basePackageClasses = MainClassApplication.class)
-@ComponentScan(basePackages = {"sb.rest.soap.api"})
 public class WebServiceConfiguration extends WsConfigurerAdapter {
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -42,5 +42,14 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
 	public XsdSchema studentsSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("student-details.xsd"));
 	}
+	
+	@Bean(name="apiBookMapper")
+	public BookMapper bookMapper() {
+		return new BookMapperImpl();
+	}
 
+	@Bean(name="apiStudentMapper")
+	public StudentMapper studentMapper() {
+		return new StudentMapperImpl();
+	}
 }

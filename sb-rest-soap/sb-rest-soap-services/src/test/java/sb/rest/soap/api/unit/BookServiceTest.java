@@ -1,64 +1,127 @@
 package sb.rest.soap.api.unit;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doReturn;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import sb.rest.soap.api.configuration.ConfigurationTest;
-import sb.rest.soap.api.service.IBookService;
+import sb.rest.soap.api.repository.BookRepository;
+import sb.rest.soap.api.repository.models.BookBo;
 import sb.rest.soap.api.service.dto.Book;
+import sb.rest.soap.api.service.enums.Errors;
 import sb.rest.soap.api.service.exception.LibraryException;
+import sb.rest.soap.api.service.impl.BookServiceImpl;
+import sb.rest.soap.api.service.mapper.BookMapper;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes= {ConfigurationTest.class})
+@RunWith(MockitoJUnitRunner.class)
 public class BookServiceTest {
 
-	@Autowired
-	protected IBookService bookService;
+	@InjectMocks
+	protected BookServiceImpl bookService;
 
+	@Mock
+	private BookRepository bookRepository;
 	
-//	@Test
-//	public void create() {
-//		List<Book> books = bookService.create("author","title");
-//		assertThat(books, hasSize(4));
-//	}
+	@Mock
+	private BookMapper bookMapper;
 	
+	@Rule
+	public ExpectedException thrownException = ExpectedException.none();
+	
+	private List<Book> books;
+	private Book book;
+	
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+
+		book = new Book(1,"title",2019,123456789,"author","editor");
+		books = new ArrayList<>();
+		books.add(book);
+	}
+	
+
 	@Test
-	public void delete() {
-		List<Book> books = bookService.delete(3);
-		assertThat(books, hasSize(3));
+	public void getAll() {
+		doReturn(books).when(bookMapper).asBookList(anyList());
+		List<Book> books = bookService.getAll();
+		assertThat(books, hasSize(1));
 	}
 	
 	@Test
-	public void updateTitle() {
+	public void getByIdWithNullResponse() {
+		Book book = bookService.getById(1);
+		assertThat(book, nullValue());
+	}
+	
+	@Test
+	public void getByIdWithNotNullResponse() {
+		doReturn(book).when(bookMapper).asBook(null);
+		Book expected = new Book(1,"title",2019,123456789,"author","editor");
+		Book book = bookService.getById(1);
+		assertThat(book, samePropertyValuesAs(expected));
+	}
+	
+	@Test
+	public void create() {
+		doReturn(books).when(bookMapper).asBookList(anyList());
+		List<Book> books = bookService.create("title","author",2019,123456789,"editor");
+		assertThat(books, hasSize(1));
+	}
+
+	@Test
+	public void updateExistingBookTitle() {
+		Optional<BookBo> optional = Optional.of(new BookBo());
+		doReturn(optional).when(bookRepository).findById(any(Integer.class));
+		doReturn(books).when(bookMapper).asBookList(anyList());
+		
 		List<Book> books = null;
 		try {
 			books = bookService.updateTitle(2,"newTitle");
 		} catch (LibraryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		assertThat(books, hasSize(3));
+		assertThat(books, hasSize(1));
+	}
+
+	@Test(expected = LibraryException.class)
+	public void updateNotExistingBookTitle() throws Exception {
+		Optional<BookBo> optional = Optional.empty();
+		doReturn(optional).when(bookRepository).findById(any(Integer.class));
+		bookService.updateTitle(2,"newTitle");
 	}
 
 	@Test
-	public void getAll() {
-		List<Book> books = bookService.getAll();
-		assertThat(books, hasSize(3));
+	public void updateNotExistingBookTitle_2() throws Exception {
+		thrownException.expect(LibraryException.class);
+		thrownException.expectMessage(containsString(Errors.BOOK_NOT_EXIST.getValue()));
+		Optional<BookBo> optional = Optional.empty();
+		doReturn(optional).when(bookRepository).findById(any(Integer.class));
+		bookService.updateTitle(2,"newTitle");
 	}
-	
-//	@Test
-//	public void getById() {
-//		Book expected = new Book(1,"Marcel Proust","In Search of Lost Time");
-//		Book book = bookService.getById(1);
-//		assertThat(book, samePropertyValuesAs(expected));
-//	}
+
+	@Test
+	public void delete() {
+		doReturn(books).when(bookMapper).asBookList(anyList());
+		List<Book> books = bookService.delete(3);
+		assertThat(books, hasSize(1));
+	}
+
 }

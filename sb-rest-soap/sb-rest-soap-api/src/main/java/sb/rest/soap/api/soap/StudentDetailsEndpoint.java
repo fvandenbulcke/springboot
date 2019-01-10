@@ -2,7 +2,6 @@ package sb.rest.soap.api.soap;
 
 import java.util.List;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +25,16 @@ import sb.rest.soap.api.mapper.StudentMapper;
 import sb.rest.soap.api.service.IStudentService;
 import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
+import sb.rest.soap.api.service.exception.LibraryException;
 
 @Endpoint
 public class StudentDetailsEndpoint {
 	
 
 	private final Logger LOGGER = LoggerFactory.getLogger(StudentDetailsEndpoint.class);
-	private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
+	
+	@Autowired
+	private StudentMapper mapper;
 
 	@Autowired
 	private IStudentService studentService;
@@ -83,7 +85,7 @@ public class StudentDetailsEndpoint {
 	
 	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "UpdateStudentNameRequest")
 	@ResponsePayload
-	public UpdateStudentNameResponse updateName(@RequestPayload UpdateStudentNameRequest request) {
+	public UpdateStudentNameResponse updateName(@RequestPayload UpdateStudentNameRequest request) throws LibraryException {
 		LOGGER.info("Web service call to update student name");
 
 		List<Student> students = studentService.updateName(request.getId(),request.getName());

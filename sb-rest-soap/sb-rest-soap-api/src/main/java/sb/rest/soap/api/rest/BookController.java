@@ -2,7 +2,6 @@ package sb.rest.soap.api.rest;
 
 import java.util.List;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,8 @@ public class BookController {
 	@Autowired
 	private IBookService bookService;
 	
-	private BookMapper mapper = Mappers.getMapper(BookMapper.class);
+	@Autowired
+	private BookMapper mapper;
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET,path="/book", produces = "application/json")

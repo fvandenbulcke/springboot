@@ -4,6 +4,7 @@ import java.util.List;
 
 import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
+import sb.rest.soap.api.service.exception.LibraryException;
 
 public interface IStudentService {
 
@@ -15,7 +16,7 @@ public interface IStudentService {
 	
 	public List<Student> create(String firstName,String name,String level);
 	
-	public List<Student> updateName(Integer id, String newName);
+	public List<Student> updateName(Integer id, String newName) throws LibraryException;
 	
 	public List<Student> delete(Integer id);
 }

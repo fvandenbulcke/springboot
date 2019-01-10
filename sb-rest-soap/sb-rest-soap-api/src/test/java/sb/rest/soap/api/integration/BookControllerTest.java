@@ -36,7 +36,7 @@ public class BookControllerTest {
 		HttpEntity<List<Book>> entity = new HttpEntity<List<Book>>(null, headers);
 
 		ResponseEntity<List> response = restTemplate.exchange(getURLWithPort("/api/v1/book"),HttpMethod.GET, entity, List.class);
-		assertThat(response.getBody().size(), equalTo(3));
+		assertThat(response.getBody().size(), equalTo(0));
 	}
 
 	private String getURLWithPort(String servicePath) {

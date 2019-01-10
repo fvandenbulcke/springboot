@@ -12,5 +12,16 @@ public class Student {
 	private String name;
 	private String level;
 	private Date creationDate;
+	
+	public Student() {}
+	
+	public Student(Integer id, String firstName, String name, String level, Date creationDate) {
+		this.id = id;
+		this.firstName = firstName;
+		this.name = name;
+		this.level = level;
+		this.creationDate = creationDate;
+	}
 
+	
 }
