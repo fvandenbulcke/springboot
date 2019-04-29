@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sb.api.webservice.rest.BookDto;
 import sb.rest.soap.api.mapper.BookMapper;
-import sb.rest.soap.api.service.IBookService;
+import sb.rest.soap.api.service.BookService;
 import sb.rest.soap.api.service.dto.Book;
 import sb.rest.soap.api.service.exception.LibraryException;
 
@@ -28,7 +28,7 @@ public class BookController {
 	private final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
 	@Autowired
-	private IBookService bookService;
+	private BookService bookService;
 	
 	@Autowired
 	private BookMapper mapper;

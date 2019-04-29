@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,17 +26,17 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import sb.rest.soap.api.repository.BookRepository;
 import sb.rest.soap.api.repository.models.BookBo;
+import sb.rest.soap.api.service.BookService;
 import sb.rest.soap.api.service.dto.Book;
 import sb.rest.soap.api.service.enums.Errors;
 import sb.rest.soap.api.service.exception.LibraryException;
-import sb.rest.soap.api.service.impl.BookServiceImpl;
 import sb.rest.soap.api.service.mapper.BookMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookServiceTest {
 
 	@InjectMocks
-	protected BookServiceImpl bookService;
+	protected BookService bookService;
 
 	@Mock
 	private BookRepository bookRepository;
@@ -53,7 +54,7 @@ public class BookServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 
-		book = new Book(1,"title",2019,123456789,"author","editor");
+		book = new Book(1,"title",2019,BigInteger.valueOf(123456789),"author","editor");
 		books = new ArrayList<>();
 		books.add(book);
 	}
@@ -75,7 +76,7 @@ public class BookServiceTest {
 	@Test
 	public void getByIdWithNotNullResponse() {
 		doReturn(book).when(bookMapper).asBook(null);
-		Book expected = new Book(1,"title",2019,123456789,"author","editor");
+		Book expected = new Book(1,"title",2019,BigInteger.valueOf(123456789),"author","editor");
 		Book book = bookService.getById(1);
 		assertThat(book, samePropertyValuesAs(expected));
 	}
@@ -83,7 +84,7 @@ public class BookServiceTest {
 	@Test
 	public void create() {
 		doReturn(books).when(bookMapper).asBookList(anyList());
-		List<Book> books = bookService.create("title","author",2019,123456789,"editor");
+		List<Book> books = bookService.create("title","author",2019,BigInteger.valueOf(123456789),"editor");
 		assertThat(books, hasSize(1));
 	}
 

@@ -22,7 +22,7 @@ import sb.api.webservice.soap.StudentDetails;
 import sb.api.webservice.soap.UpdateStudentNameRequest;
 import sb.api.webservice.soap.UpdateStudentNameResponse;
 import sb.rest.soap.api.mapper.StudentMapper;
-import sb.rest.soap.api.service.IStudentService;
+import sb.rest.soap.api.service.StudentService;
 import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
 import sb.rest.soap.api.service.exception.LibraryException;
@@ -37,7 +37,7 @@ public class StudentDetailsEndpoint {
 	private StudentMapper mapper;
 
 	@Autowired
-	private IStudentService studentService;
+	private StudentService studentService;
 
 	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "GetStudentByIdRequest")
 	@ResponsePayload

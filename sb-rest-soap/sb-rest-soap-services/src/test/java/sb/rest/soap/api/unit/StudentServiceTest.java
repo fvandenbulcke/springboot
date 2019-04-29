@@ -26,19 +26,19 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import sb.rest.soap.api.repository.StudentRepository;
 import sb.rest.soap.api.repository.models.StudentBo;
+import sb.rest.soap.api.service.StudentService;
 import sb.rest.soap.api.service.dto.SearchStudents;
 import sb.rest.soap.api.service.dto.Student;
 import sb.rest.soap.api.service.enums.Errors;
 import sb.rest.soap.api.service.enums.LibraryConstants;
 import sb.rest.soap.api.service.exception.LibraryException;
-import sb.rest.soap.api.service.impl.StudentServiceImpl;
 import sb.rest.soap.api.service.mapper.StudentMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StudentServiceTest {
 
 	@InjectMocks
-	private StudentServiceImpl studentService;
+	private StudentService studentService;
 
 	@Mock
 	private StudentRepository studentRepository;

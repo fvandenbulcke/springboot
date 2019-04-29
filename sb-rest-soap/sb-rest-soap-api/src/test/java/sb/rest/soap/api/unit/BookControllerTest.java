@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import sb.api.webservice.rest.BookDto;
 import sb.rest.soap.api.mapper.BookMapper;
 import sb.rest.soap.api.rest.BookController;
-import sb.rest.soap.api.service.IBookService;
+import sb.rest.soap.api.service.BookService;
 import sb.rest.soap.api.service.dto.Book;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,7 +39,7 @@ public class BookControllerTest {
 	private BookController bookController;
 	
 	@Mock
-	private IBookService bookService;
+	private BookService bookService;
 	
 	@Mock
 	private BookMapper bookMapper;
@@ -52,7 +53,7 @@ public class BookControllerTest {
 		Book book = new Book();
 		doReturn(book).when(bookService).getById(any(Integer.class));
 		
-		BookDto dto = new BookDto(1,"title",2019,123456789,"author","editor");
+		BookDto dto = new BookDto(1,"title",2019,BigInteger.valueOf(123456789),"author","editor",null);
 		List<BookDto> dtoList = new ArrayList<>();
 		dtoList.add(dto);
 

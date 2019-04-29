@@ -13,5 +13,4 @@ public interface BookMapper {
 	BookDto asBook(Book in);
 	List<BookDto> asBookList(List<Book> in);
 	
-	
 }

@@ -14,6 +14,8 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import sb.rest.soap.api.mapper.BookMapper;
 import sb.rest.soap.api.mapper.BookMapperImpl;
+import sb.rest.soap.api.mapper.BorrowMapper;
+import sb.rest.soap.api.mapper.BorrowMapperImpl;
 import sb.rest.soap.api.mapper.StudentMapper;
 import sb.rest.soap.api.mapper.StudentMapperImpl;
 
@@ -51,5 +53,10 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
 	@Bean(name="apiStudentMapper")
 	public StudentMapper studentMapper() {
 		return new StudentMapperImpl();
+	}
+
+	@Bean(name="apiBorrowMapper")
+	public BorrowMapper borrowMapper() {
+		return new BorrowMapperImpl();
 	}
 }
