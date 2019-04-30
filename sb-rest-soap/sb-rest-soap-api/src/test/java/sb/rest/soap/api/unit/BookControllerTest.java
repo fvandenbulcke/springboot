@@ -31,6 +31,7 @@ import sb.rest.soap.api.mapper.BookMapper;
 import sb.rest.soap.api.rest.BookController;
 import sb.rest.soap.api.service.BookService;
 import sb.rest.soap.api.service.dto.Book;
+import sb.rest.soap.api.service.exception.LibraryException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookControllerTest {
@@ -47,7 +48,7 @@ public class BookControllerTest {
 	private MockMvc mockMvc;
 	
 	@Before
-	public void setup() {
+	public void setup() throws LibraryException {
 		mockMvc = standaloneSetup(bookController).build();
 		
 		Book book = new Book();

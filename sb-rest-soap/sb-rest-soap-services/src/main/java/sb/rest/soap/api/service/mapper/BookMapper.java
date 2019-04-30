@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import sb.api.webservice.rest.request.CreateBookDto;
 import sb.rest.soap.api.repository.models.BookBo;
 import sb.rest.soap.api.repository.models.BorrowBo;
 import sb.rest.soap.api.service.dto.Book;
@@ -23,4 +24,6 @@ public interface BookMapper {
 	@Mapping(target="book", ignore=true)
 	@Mapping(target="student.borrows", ignore=true)
 	Borrow asBorrowWithoutBook(BorrowBo in);
+	
+	BookBo asBo(CreateBookDto in);
 }

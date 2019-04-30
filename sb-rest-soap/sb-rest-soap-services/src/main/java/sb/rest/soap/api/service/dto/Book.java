@@ -17,5 +17,14 @@ public class Book {
 	private List<Borrow> borrows;
 	
 	public Book() {}
+
+	public Book(Integer id, String title, Integer year, BigInteger isbn, String author, String editor) {
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.isbn = isbn;
+		this.author = author;
+		this.editor = editor;
+	}
 	
 }

@@ -68,13 +68,13 @@ public class BookServiceTest {
 	}
 	
 	@Test
-	public void getByIdWithNullResponse() {
+	public void getByIdWithNullResponse() throws LibraryException {
 		Book book = bookService.getById(1);
 		assertThat(book, nullValue());
 	}
 	
 	@Test
-	public void getByIdWithNotNullResponse() {
+	public void getByIdWithNotNullResponse() throws LibraryException {
 		doReturn(book).when(bookMapper).asBook(null);
 		Book expected = new Book(1,"title",2019,BigInteger.valueOf(123456789),"author","editor");
 		Book book = bookService.getById(1);

@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sb.api.webservice.rest.BorrowCreationDto;
-import sb.api.webservice.rest.BorrowDto;
-import sb.rest.soap.api.mapper.BorrowMapper;
 import sb.rest.soap.api.service.BorrowService;
 import sb.rest.soap.api.service.dto.Borrow;
 
@@ -28,15 +26,11 @@ public class BorrowController {
 	@Autowired
 	private BorrowService borrowService;
 	
-	@Autowired
-	private BorrowMapper borrowMapper;
-	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET,path="/borrow", produces = "application/json")
-	public @ResponseBody List<BorrowDto> getAll() {
+	public @ResponseBody List<Borrow> getAll() {
 		LOGGER.info("Web service call to get all borrows");
-		List<Borrow> borrows = borrowService.getAll();
-		return borrowMapper.asBorrowList(borrows);
+		return borrowService.getAll();
 	}
 
 	@ResponseStatus(HttpStatus.OK)

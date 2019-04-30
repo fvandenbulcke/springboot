@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sb.api.webservice.rest.BookDto;
-import sb.rest.soap.api.mapper.BookMapper;
+import sb.api.webservice.rest.request.CreateBookDto;
 import sb.rest.soap.api.service.BookService;
 import sb.rest.soap.api.service.dto.Book;
 import sb.rest.soap.api.service.exception.LibraryException;
@@ -30,56 +29,44 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	@Autowired
-	private BookMapper mapper;
-	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET,path="/book", produces = "application/json")
-	public @ResponseBody List<BookDto> getAllBooks() {
+	public @ResponseBody List<Book> getAllBooks() {
 		LOGGER.info("Web service call to get all books");
-		List<Book> books = bookService.getAll();
-		return getBookList(books);
+		return bookService.getAll();
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET,path="/book/{bookId}", produces = "application/json")
-	public @ResponseBody BookDto getBookById(
-			@PathVariable(required = true) Integer bookId) {
+	public @ResponseBody Book getBookById(
+			@PathVariable(required = true) Integer bookId) throws LibraryException {
 		LOGGER.info("Web service call to get book by id");
-		Book book = bookService.getById(bookId);
-		return mapper.asBook(book);
+		return bookService.getById(bookId);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST,path="/book", produces = "application/json")
-	public @ResponseBody List<BookDto> create(
-			@RequestBody(required = true) BookDto bookDto) {
+	public @ResponseBody List<Book> create(
+			@RequestBody(required = true) CreateBookDto bookDto) {
 		LOGGER.info("Web service call to create book");
-		List<Book> books = bookService.create(bookDto.getTitle(),bookDto.getAuthor(),bookDto.getYear(),bookDto.getIsbn(),bookDto.getEditor());
-		return getBookList(books);
+		return bookService.create(bookDto);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.PUT,path="/book/{bookId}", produces = "application/json")
-	public @ResponseBody List<BookDto> updateTitle(
+	public @ResponseBody List<Book> updateTitle(
 			@PathVariable(required = true) Integer bookId,
 			@RequestBody(required = true) String title) throws LibraryException{
 		LOGGER.info("Web service call to update title book");
-		List<Book> books = bookService.updateTitle(bookId, title);
-		return getBookList(books);
+		return bookService.updateTitle(bookId, title);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.DELETE,path="/book/{bookId}", produces = "application/json")
-	public @ResponseBody List<BookDto> delete(
+	public @ResponseBody List<Book> delete(
 			@PathVariable(required = true) Integer bookId) {
 		LOGGER.info("Web service call to delete book");
-		List<Book> books = bookService.delete(bookId);
-		return getBookList(books);
+		return bookService.delete(bookId);
 	}
 
-	private List<BookDto> getBookList(List<Book> books) {
-		return mapper.asBookList(books);
-	}
-	
 }
