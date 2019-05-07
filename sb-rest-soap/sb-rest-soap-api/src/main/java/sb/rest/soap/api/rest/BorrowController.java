@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sb.api.webservice.rest.BorrowCreationDto;
 import sb.rest.soap.api.service.BorrowService;
 import sb.rest.soap.api.service.dto.Borrow;
+import sb.rest.soap.api.service.exception.LibraryException;
 
 @RestController(value="borrowController")
 @RequestMapping(path="/api/v1")
@@ -36,10 +38,17 @@ public class BorrowController {
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST,path="/borrow", produces = "application/json")
 	public @ResponseBody Borrow create(
-			@RequestBody(required = true) BorrowCreationDto borrowCreationDto) {
+			@RequestBody(required = true) BorrowCreationDto borrowCreationDto) throws LibraryException {
 		LOGGER.info("Web service call to create borrow");
 		return borrowService.create(borrowCreationDto.getBookId(), borrowCreationDto.getStudentId());
 	}
 	
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(method = RequestMethod.PUT,path="/borrow/{borrowId}/return", produces = "application/json")
+	public @ResponseBody Borrow updateTitle(
+			@PathVariable(required = true) Integer borrowId) throws LibraryException{
+		LOGGER.info("Web service call to return book");
+		return borrowService.returnBorrow(borrowId);
+	}
 	
 }

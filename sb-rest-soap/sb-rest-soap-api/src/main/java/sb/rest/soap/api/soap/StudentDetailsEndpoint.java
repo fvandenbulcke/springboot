@@ -41,7 +41,7 @@ public class StudentDetailsEndpoint {
 
 	@PayloadRoot(namespace = "http://webservice.api.sb/soap", localPart = "GetStudentByIdRequest")
 	@ResponsePayload
-	public GetStudentByIdResponse getStudentById(@RequestPayload GetStudentByIdRequest request) {
+	public GetStudentByIdResponse getStudentById(@RequestPayload GetStudentByIdRequest request) throws LibraryException {
 		LOGGER.info("Web service call to get student by id");
 
 		Student student = studentService.getById(request.getId());

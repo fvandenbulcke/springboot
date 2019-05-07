@@ -53,14 +53,19 @@ public class StudentService {
 		return mapper.asStudentList(students);
 	}
 
-	public Student getById(Integer id) {
+	public Student getById(Integer id) throws LibraryException {
+		StudentBo student = this.getStudentById(id);
+		return mapper.asStudent(student);
+	}
+	
+	public StudentBo getStudentById(Integer id) throws LibraryException {
 		LOGGER.info("Get student by id {}", id);
 		Optional<StudentBo> optional = studentRepository.findById(id);
 		StudentBo student = null;
 		if (optional.isPresent()) {
-			student = optional.get();
+			throw new LibraryException(Errors.STUDENT_NOT_EXIST);
 		}
-		return mapper.asStudent(student);
+		return student;
 	}
 
 	public List<Student> create(String firstName,String name,String level) {
